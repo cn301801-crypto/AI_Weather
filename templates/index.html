@@ -5,30 +5,30 @@
 </head>
 <body>
 
-<h2>🌦️ Weather Prediction System</h2>
+    <h1>Hybrid Weather Prediction</h1>
 
-<form method="POST" enctype="multipart/form-data">
-    <label>Upload Image:</label><br>
-    <input type="file" name="image" required><br><br>
+    <form method="POST" enctype="multipart/form-data">
+        <label>Upload Image:</label>
+        <input type="file" name="image"><br><br>
 
-    <label>Temperature (°C):</label><br>
-    <input type="number" step="any" name="temp" required><br><br>
+        <label>Temperature:</label>
+        <input type="number" step="any" name="temp" required><br><br>
 
-    <label>Humidity (%):</label><br>
-    <input type="number" step="any" name="hum" required><br><br>
+        <label>Humidity:</label>
+        <input type="number" step="any" name="hum" required><br><br>
 
-    <label>Pressure (kPa):</label><br>
-    <input type="number" step="any" name="press" required><br><br>
+        <label>Pressure:</label>
+        <input type="number" step="any" name="press" required><br><br>
 
-    <label>Wind Speed (km/h):</label><br>
-    <input type="number" step="any" name="wind" required><br><br>
+        <label>Wind Speed:</label>
+        <input type="number" step="any" name="wind" required><br><br>
 
-    <button type="submit">Predict</button>
-</form>
+        <button type="submit">Predict</button>
+    </form>
 
-{% if result %}
-    <h3>✅ Predicted Weather: {{ result }}</h3>
-{% endif %}
+    {% if result %}
+        <h2>Prediction: {{ result }}</h2>
+    {% endif %}
 
 </body>
 </html>
