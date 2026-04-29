@@ -1,95 +1,63 @@
-<nav class="bg-white shadow-md p-4 flex justify-between">
-    <h1 class="font-bold text-blue-600">🌦 AI Weather</h1>
-
-    <div class="space-x-4">
-        <a href="/" class="hover:text-blue-500">Home</a>
-        <a href="/about" class="hover:text-blue-500">About</a>
-        <a href="/how" class="hover:text-blue-500">How It Works</a>
-        <a href="/predict" class="bg-blue-600 text-white px-3 py-1 rounded">Predict</a>
-    </div>
-</nav>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title>AI Weather Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<body>
 
-<body class="bg-gradient-to-br from-gray-900 via-blue-900 to-black text-white">
+<div class="container">
 
-<!-- Navbar -->
-<nav class="p-5 flex justify-between bg-white/10 backdrop-blur-lg">
-    <h1 class="font-bold text-xl">🌦 AI Weather</h1>
-    <a href="/" class="hover:text-gray-300">Home</a>
-</nav>
+    <h1 class="title">🌦 Hybrid Weather Prediction</h1>
 
-<div class="max-w-6xl mx-auto mt-12 p-8 bg-white/10 backdrop-blur-lg rounded-2xl shadow-lg">
+    <form method="POST" enctype="multipart/form-data" class="glass-card">
 
-<form method="POST" enctype="multipart/form-data">
+        <!-- LEFT: Image Upload -->
+        <div class="left">
+            <label>Upload Image</label>
+            <input type="file" name="image" accept="image/*" onchange="previewImage(event)">
 
-<div class="grid md:grid-cols-2 gap-10">
+            <img id="preview" src="#" alt="Preview" style="display:none;">
+        </div>
 
-<!-- IMAGE SIDE -->
-<div class="text-center">
-    <h2 class="mb-4 text-lg">Upload Image</h2>
+        <!-- RIGHT: Numeric Inputs -->
+        <div class="right">
+            <label>Temperature</label>
+            <input type="number" step="any" name="temp" required>
 
-    <input type="file" name="image" id="imageInput" class="mb-4">
+            <label>Humidity</label>
+            <input type="number" step="any" name="hum" required>
 
-    <img id="preview" class="hidden w-64 h-64 mx-auto rounded-xl shadow-lg object-cover"/>
-</div>
+            <label>Pressure</label>
+            <input type="number" step="any" name="press" required>
 
-<!-- NUMERIC SIDE -->
-<div class="space-y-4">
+            <label>Wind Speed</label>
+            <input type="number" step="any" name="wind" required>
+        </div>
 
-    <input type="number" name="temp" placeholder="Temperature"
-           class="w-full p-3 rounded-lg bg-white/20 placeholder-gray-300">
+        <!-- BUTTON -->
+        <div class="center">
+            <button type="submit">Predict</button>
+        </div>
 
-    <input type="number" name="hum" placeholder="Humidity"
-           class="w-full p-3 rounded-lg bg-white/20">
+    </form>
 
-    <input type="number" name="press" placeholder="Pressure"
-           class="w-full p-3 rounded-lg bg-white/20">
-
-    <input type="number" name="wind" placeholder="Wind Speed"
-           class="w-full p-3 rounded-lg bg-white/20">
-
-</div>
-
-</div>
-
-<!-- BUTTON + RESULT -->
-<div class="text-center mt-10">
-
-    <button class="bg-blue-500 px-8 py-3 rounded-xl text-lg hover:bg-blue-600 transition">
-        Predict
-    </button>
-
+    <!-- RESULT -->
     {% if result %}
-    <div class="mt-6 text-2xl font-bold text-green-400">
-        🌤 {{ result }}
+    <div class="result-box">
+        🌤 Prediction: <span>{{ result }}</span>
     </div>
     {% endif %}
 
 </div>
 
-</form>
-
-</div>
-
 <script>
-const input = document.getElementById("imageInput");
-const preview = document.getElementById("preview");
-
-input.addEventListener("change", function () {
-    const file = this.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = e => {
-            preview.src = e.target.result;
-            preview.classList.remove("hidden");
-        };
-        reader.readAsDataURL(file);
-    }
-});
+function previewImage(event) {
+    const preview = document.getElementById('preview');
+    preview.src = URL.createObjectURL(event.target.files[0]);
+    preview.style.display = 'block';
+}
 </script>
 
 </body>

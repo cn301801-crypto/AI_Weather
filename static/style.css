@@ -1,0 +1,105 @@
+/* Background */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    height: 100vh;
+}
+
+/* Container */
+.container {
+    text-align: center;
+    padding: 30px;
+}
+
+/* Title */
+.title {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Glass Card */
+.glass-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    width: 80%;
+    padding: 30px;
+
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Sections */
+.left, .right {
+    width: 45%;
+    text-align: left;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+/* Button */
+button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    background: #ff7eb3;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff4e8a;
+    transform: scale(1.05);
+}
+
+/* Center Button */
+.center {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Image Preview */
+#preview {
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Result */
+.result-box {
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 1.5rem;
+    color: white;
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    animation: slideUp 0.5s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
