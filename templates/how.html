@@ -13,44 +13,22 @@
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-900 text-white text-center p-10">
 
-<!-- Navbar here -->
+<h1 class="text-4xl font-bold mb-10">How It Works</h1>
 
-<div class="max-w-5xl mx-auto p-10 text-center">
+<div class="grid md:grid-cols-4 gap-6">
 
-    <h1 class="text-4xl font-bold mb-10">How It Works</h1>
-
-    <div class="grid md:grid-cols-4 gap-6">
-
-        <div class="bg-white p-6 rounded-xl shadow">
-            <h2>📸</h2>
-            <p>Upload Image</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl shadow">
-            <h2>📊</h2>
-            <p>Enter Data</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl shadow">
-            <h2>⚙️</h2>
-            <p>Model Processing</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl shadow">
-            <h2>🌤</h2>
-            <p>Prediction</p>
-        </div>
-
-    </div>
-
-    <a href="/predict"
-       class="mt-10 inline-block bg-blue-600 text-white px-6 py-3 rounded-xl">
-        Try Now 🚀
-    </a>
+<div class="bg-white/10 p-6 rounded-xl">📸 Upload</div>
+<div class="bg-white/10 p-6 rounded-xl">📊 Input</div>
+<div class="bg-white/10 p-6 rounded-xl">⚙️ Process</div>
+<div class="bg-white/10 p-6 rounded-xl">🌤 Result</div>
 
 </div>
+
+<a href="/predict" class="mt-10 inline-block bg-blue-500 px-6 py-3 rounded-xl">
+Try Now 🚀
+</a>
 
 </body>
 </html>
