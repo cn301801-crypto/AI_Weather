@@ -15,14 +15,38 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # -----------------------------
-# Load Models
+# Load Models (SAFE MODE)
 # -----------------------------
-cnn_model = load_model("models/cnn_model.h5")
-xgb_model = joblib.load("models/xgb_model.pkl")
-scaler = joblib.load("models/scaler.pkl")
+cnn_model = None
+xgb_model = None
+scaler = None
+image_classes = None
+numeric_classes = None
 
-image_classes = np.load("models/image_classes.npy", allow_pickle=True)
-numeric_classes = np.load("models/numeric_classes.npy", allow_pickle=True)
+try:
+    cnn_model = load_model("models/cnn_model.h5")
+    print("✅ CNN model loaded")
+except Exception as e:
+    print("❌ CNN model not found:", e)
+
+try:
+    xgb_model = joblib.load("models/xgb_model.pkl")
+    print("✅ XGB model loaded")
+except Exception as e:
+    print("❌ XGB model not found:", e)
+
+try:
+    scaler = joblib.load("models/scaler.pkl")
+    print("✅ Scaler loaded")
+except Exception as e:
+    print("❌ Scaler not found:", e)
+
+try:
+    image_classes = np.load("models/image_classes.npy", allow_pickle=True)
+    numeric_classes = np.load("models/numeric_classes.npy", allow_pickle=True)
+    print("✅ Classes loaded")
+except Exception as e:
+    print("❌ Class files not found:", e)
 
 IMG_SIZE = 64
 
@@ -30,6 +54,9 @@ IMG_SIZE = 64
 # Prediction Functions
 # -----------------------------
 def predict_image(image_path):
+    if cnn_model is None or image_classes is None:
+        return None
+
     if image_path is None:
         return None
 
@@ -46,6 +73,9 @@ def predict_image(image_path):
 
 
 def predict_numeric(data):
+    if xgb_model is None or scaler is None or numeric_classes is None:
+        return "Model not available"
+
     data = scaler.transform([data])
     pred = xgb_model.predict(data)
     return numeric_classes[pred[0]]
@@ -90,6 +120,7 @@ def how():
 @app.route("/predict", methods=["GET", "POST"])
 def predict():
     result = None
+    image_path = None
 
     if request.method == "POST":
         try:
@@ -106,6 +137,7 @@ def predict():
             if file and file.filename != "":
                 filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
                 file.save(filepath)
+                image_path = filepath
 
             # Get prediction
             result = final_prediction(filepath, [temp, hum, press, wind])
@@ -113,9 +145,11 @@ def predict():
         except Exception as e:
             result = f"Error: {str(e)}"
 
-    return render_template("predict.html", result=result)
+    return render_template("predict.html", result=result, image_path=image_path)
 
 
+# -----------------------------
+# Run App
 # -----------------------------
 if __name__ == "__main__":
     app.run(debug=True)
