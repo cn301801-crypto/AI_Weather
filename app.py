@@ -17,12 +17,12 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # -----------------------------
 # Load Models
 # -----------------------------
-cnn_model = load_model("cnn_model.h5")
-xgb_model = joblib.load("xgb_model.pkl")
-scaler = joblib.load("scaler.pkl")
+cnn_model = load_model("models/cnn_model.h5")
+xgb_model = joblib.load("models/xgb_model.pkl")
+scaler = joblib.load("models/scaler.pkl")
 
-image_classes = np.load("image_classes.npy", allow_pickle=True)
-numeric_classes = np.load("numeric_classes.npy", allow_pickle=True)
+image_classes = np.load("models/image_classes.npy", allow_pickle=True)
+numeric_classes = np.load("models/numeric_classes.npy", allow_pickle=True)
 
 IMG_SIZE = 64
 
