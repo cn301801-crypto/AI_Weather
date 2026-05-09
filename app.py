@@ -26,6 +26,7 @@ numeric_classes = None
 
 try:
     cnn_model = load_model("models/cnn_model.h5", compile=False)
+    pred = cnn_model.predict(img, verbose=0)
     print("✅ CNN model loaded")
 except Exception as e:
     print("❌ CNN model not found:", e)
@@ -49,7 +50,7 @@ try:
 except Exception as e:
     print("❌ Class files not found:", e)
 
-IMG_SIZE = 32
+IMG_SIZE = 64
 
 # -----------------------------
 # Prediction Functions
@@ -64,7 +65,7 @@ def predict_image(image_path):
     if img is None:
         return None
 
-    img = cv2.resize(img, (32, 32))
+    img = cv2.resize(img, (64, 64))
     img = img.astype("float32") / 255.0
     img = np.expand_dims(img, axis=0)
 
