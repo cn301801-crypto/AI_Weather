@@ -48,14 +48,12 @@ try:
 except Exception as e:
     print("❌ Class files not found:", e)
 
-IMG_SIZE = 64
+IMG_SIZE = 32
 
 # -----------------------------
 # Prediction Functions
 # -----------------------------
 def predict_image(image_path):
-    if cnn_model is None or image_classes is None:
-        return None
 
     if image_path is None:
         return None
@@ -65,12 +63,13 @@ def predict_image(image_path):
     if img is None:
         return None
 
-    img = cv2.resize(img, (IMG_SIZE, IMG_SIZE)) / 255.0
-    img = np.reshape(img, (1, IMG_SIZE, IMG_SIZE, 3))
+    img = cv2.resize(img, (32, 32))
+    img = img / 255.0
+    img = np.reshape(img, (1, 32, 32, 3))
 
-    pred = cnn_model.predict(img)
+    pred = cnn_model.predict(img, verbose=0)
+
     return image_classes[np.argmax(pred)]
-
 
 def predict_numeric(data):
     if xgb_model is None or scaler is None or numeric_classes is None:
@@ -82,16 +81,18 @@ def predict_numeric(data):
 
 
 def final_prediction(image_path, num_data):
+
+    print("Starting image prediction")
     img_pred = predict_image(image_path)
+
+    print("Image prediction done")
+
+    print("Starting numeric prediction")
     num_pred = predict_numeric(num_data)
 
-    # Hybrid logic
-    if img_pred is None:
-        return num_pred
-    elif img_pred == num_pred:
-        return img_pred
-    else:
-        return num_pred
+    print("Numeric prediction done")
+
+    return num_pred
 
 
 # -----------------------------
