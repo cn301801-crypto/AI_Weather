@@ -52,12 +52,22 @@
 
     <!-- RESULT -->
     {% if result %}
-    <div class="mt-10 text-center">
-        <div class="inline-block bg-black/30 px-8 py-4 rounded-xl text-2xl font-bold">
-        🌤 Prediction: {{ result }}
-        </div>
+<div class="mt-10 text-center">
+    
+    <div class="inline-block bg-black/30 backdrop-blur-lg px-10 py-5 rounded-2xl shadow-lg">
+
+        <h2 class="text-4xl font-extrabold text-white">
+            🌤 Prediction:
+        </h2>
+
+        <p class="text-5xl font-black text-white mt-3 tracking-wide">
+            {{ result }}
+        </p>
+
     </div>
-    {% endif %}     
+
+</div>
+{% endif %}  
 
 </div>
 
