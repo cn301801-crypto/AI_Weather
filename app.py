@@ -26,7 +26,6 @@ numeric_classes = None
 
 try:
     cnn_model = load_model("models/cnn_model.h5", compile=False)
-    pred = cnn_model.predict(img, verbose=0)
     print("✅ CNN model loaded")
 except Exception as e:
     print("❌ CNN model not found:", e)
