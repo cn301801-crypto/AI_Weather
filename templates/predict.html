@@ -52,10 +52,12 @@
 
     <!-- RESULT -->
     {% if result %}
-    <div class="result-box">
-        🌤 Prediction: <span>{{ result }}</span>
+    <div class="mt-10 text-center">
+        <div class="inline-block bg-black/30 px-8 py-4 rounded-xl text-2xl font-bold">
+        🌤 Prediction: {{ result }}
+        </div>
     </div>
-    {% endif %}
+    {% endif %}     
 
 </div>
 
